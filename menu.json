@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Pizza",
+    "description": "A classic Italian dish topped with fresh tomatoes, cheese, and basil.",
+    "image": "pizza.jpg",
+    "model": "pizza.glb"
+  },
+  {
+    "name": "Burger",
+    "description": "Juicy beef patty layered with cheese, lettuce, and special sauce.",
+    "image": "burger.jpg",
+    "model": "burger.glb"
+  },
+  {
+    "name": "Salad",
+    "description": "Fresh greens with tomatoes, cucumbers, and a light vinaigrette.",
+    "image": "salad.jpg",
+    "model": "salad.glb"
+  }
+]
