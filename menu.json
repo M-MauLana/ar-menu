@@ -13,7 +13,7 @@
   },
   {
     "name": "Salad",
-    "description": "Fresh greens with tomatoes, cucumbers, and a light vinaigrette.",
+    "description": "Fresh greens topped with a tangy vinaigrette and crunchy croutons.",
     "image": "salad.jpg",
     "model": "salad.glb"
   }
