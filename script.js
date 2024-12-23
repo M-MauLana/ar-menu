@@ -1,5 +1,36 @@
 document.addEventListener('DOMContentLoaded', async () => {
     await loadMenu();
+    initializeARButtons();
+  
+    function initializeARButtons() {
+      const arSupported = 'xr' in navigator;
+  
+      document.querySelectorAll('.view-ar').forEach(button => {
+        button.addEventListener('click', async (event) => {
+          const model = event.target.getAttribute('data-model');
+          const modelViewer = document.getElementById('model-viewer');
+          const loadingContainer = document.getElementById('loading-container');
+          const arViewer = document.getElementById('ar-viewer');
+  
+          if (arSupported) {
+            try {
+              loadingContainer.classList.remove('hidden');
+              modelViewer.src = `./public/models/${model}`;
+              arViewer.classList.remove('hidden');
+              modelViewer.addEventListener('load', () => {
+                loadingContainer.classList.add('hidden');
+              });
+            } catch (error) {
+              loadingContainer.classList.add('hidden');
+              alert('Failed to load AR model.');
+              console.error(error);
+            }
+          } else {
+            alert("AR is not supported on your device.");
+          }
+        });
+      });
+    }
   
     async function loadMenu() {
       try {
@@ -20,38 +51,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   
           menuContainer.appendChild(menuItem);
         });
-  
-        initializeARButtons();
       } catch (error) {
         console.error("Failed to load menu:", error);
         alert("Unable to load the menu. Please try again later.");
       }
-    }
-  
-    async function initializeARButtons() {
-      const arSupported = 'xr' in navigator;
-  
-      document.querySelectorAll('.view-ar').forEach(button => {
-        button.addEventListener('click', async (event) => {
-          const modelPath = event.target.getAttribute('data-model');
-          if (arSupported) {
-            try {
-              const permissionStatus = await navigator.permissions.query({ name: 'camera' });
-  
-              if (permissionStatus.state === 'granted' || permissionStatus.state === 'prompt') {
-                window.location.href = `./ar-viewer.html?model=${modelPath}`;
-              } else {
-                alert('Camera access is required for AR features. Please enable it in your browser settings.');
-              }
-            } catch (error) {
-              console.error("Error accessing camera:", error);
-              alert("AR features require camera access, but we couldn't activate it. Please try again.");
-            }
-          } else {
-            alert("AR is not supported on your device or browser.");
-          }
-        });
-      });
     }
   });
   
